@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            Project 89
+        </title>
+        <style>
+            input{
+                width:80%;
+            }div{
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 10px;
+            }
+        </style>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+    <body class="bg-danger">
+        <center>
+            <div class="container">
+                <h1 class="text-info center-block">
+                    Login to Maths Quiz
+                </h1>
+                <div class="col-lg-6 col-md-8 col-sm-10 col-xs-10 bg-warning center-block">
+                    <h2>Player 1 login</h2>
+                    <b>Username:</b><br>
+                    <input type="text" id="p1" placeholder="Player 1 name">
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-10 col-xs-10 bg-warning center-block">
+                    <h2>Player 2 login</h2>
+                    <b>Username:</b><br>
+                    <input type="text" id="p2" placeholder="Player 2 name">
+                </div>
+                <button onclick="login()" class="btn btn-primary col-lg-6 col-md-8 col-sm-10 col-xs-10">Login</button>
+            </div>
+        </center>
+    </body>
+    <script>
+        var login = function(){
+            localStorage.setItem("Pnames", [document.getElementById("p1").value, document.getElementById("p2").value]);
+            window.location = "play.html";
+        }
+    </script>
+</html>

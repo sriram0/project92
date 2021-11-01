@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Play Math Quiz</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <style>
+            b{
+                font-size: smaller;
+            }
+            #output{
+                border-top: 15px solid darkblue;
+                border-radius: 10px;
+                padding: 10px;
+            }
+            option, select{
+                font-weight: bold;
+                font-size: large;
+            }
+        </style>
+    </head>
+    <body class="bg-danger">
+        <center class="container">
+            <h1 class="text-info">Play Math Quiz</h1>
+            <b id="scores"></b><br>
+            <label id="turns">
+                Question Turn: <br>
+                Answer Turn:
+            </label>
+            <div id="output" class="col-lg-6 col-md-8 col-sm-10 col-xs-10 center-block bg-white"></div><br>
+            <input type="number" id="n1" class="form-control" placeholder="Type Number 1..."><br>
+            <input type="number" id="n2" class="form-control" placeholder="Type Number 2..."><br><br>
+            <b>Choose operator...</b><br>
+            <select id="op" class="form-control col-lg-4 col-md-5 col-sm-6 col-xs-8">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select><br>
+            <button class="btn btn-primary col-lg-6 col-md-8 col-sm-10 col-xs-10" onclick="send()">Send</button>
+        </center>
+    </body>
+    <script>
+        var qt = 0;
+        var scores = [0, 0];
+        var playerN = localStorage.getItem("Pnames").split(",");
+        
+        var display = function(){
+            $("#scores").html(`${playerN[0]}: ${scores[0]}<br> ${playerN[1]}: ${scores[1]}`);
+            $("#turns").html(`Question turn: ${playerN[qt]} <br>`);
+            if(qt){
+                $("#turns").html($("#turns").html()+`Answer turn: ${playerN[0]}`);
+            }else{
+                $("#turns").html($("#turns").html()+`Answer turn: ${playerN[1]}`);
+            }
+        }
+        display();
+
+
+        var nums;
+        var send =function(){
+            nums = [$("#n1").val(), $("#n2").val(), $("#op").val()];
+            $("#output").html(`Q. ${nums[0]+nums[2]+nums[1]} <br> <input id="answer" class="form-control" placeholder="Type your answer here..." type="number"> <br> <button onclick="check()" class="btn btn-primary col-lg-6 col-md-8 col-sm-10 col-xs-10">Check</button>`);
+            $("input").val("");
+            $("select").val("+");
+        }
+
+        var check = function(){
+
+            if(Function("return "+nums[0]+nums[2]+nums[1])() === parseInt($("#answer").val())){
+                if(qt){
+                    scores[0]++;
+                }else{
+                    scores[1]++;
+                }
+            }
+
+            if(qt){
+                qt = 0;
+            }else{
+                qt = 1;
+            }
+
+            $("#output").html("");
+            display();
+        }
+    </script>
+</html>
